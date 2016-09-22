@@ -5,21 +5,20 @@
   "description": "This extension shows a Google Image search result for the current page",
   "version": "1.0",
 
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
   },
 
-  "content_scripts": [
-    {
-      "matches": ["https://betclic.pt/mybets"],
-      "js": ["jquery-3.1.0.slim.min.js", "popup_2.js"]
-    }
-  ],
-  "web_accessible_resources": ["jquery-3.1.0.slim.min.js", "popup_2.js"],
+  "content_scripts": [{
+    "matches": ["*://*.stackoverflow.com/*"],
+    "js": ["content.js"]
+  }],
 
-  "permissions": [
-    "activeTab",
-    "https://betclic.pt/mybets"
-  ]
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Test Extension"
+  },
+
+  "permissions": ["activeTab"]
 }
