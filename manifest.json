@@ -10,12 +10,16 @@
     "default_popup": "popup.html"
   },
 
-  "background": {
-    "scripts": ["background.js"]
-  },
+  "content_scripts": [
+    {
+      "matches": ["https://betclic.pt/mybets"],
+      "js": ["jquery-3.1.0.slim.min.js", "popup_2.js"]
+    }
+  ],
+  "web_accessible_resources": ["jquery-3.1.0.slim.min.js", "popup_2.js"],
 
   "permissions": [
     "activeTab",
-    "https://ajax.googleapis.com/"
+    "https://betclic.pt/mybets"
   ]
 }
