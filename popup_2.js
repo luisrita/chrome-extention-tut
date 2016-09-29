@@ -1,7 +1,8 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
   chrome.tabs.executeScript({
-    code: 'let odds = {},' +
-              'lines = document.getElementsByClassName("line-bet");' +
+    code: 'var odds = {},' +
+              'lines = document.getElementById("ended-bets").getElementsByClassName("line-bet");' +
+
           'for (let i = 0; i < lines.length; i++) {' +
             'let thisLine = lines[i],' +
                 'event = thisLine.getElementsByClassName("event")[0].innerText.split(",")[0],' +
@@ -23,21 +24,21 @@ chrome.browserAction.onClicked.addListener(function(tab) {
                 // odds.push(odd);
                 'odds[odd] = {' +
                   'win: result === "win" ? 1 : 0,' +
-                  'lose: result === "lose" ? 1 : 0' +
+                  'lose: result === "lose" ? 1 : 0,' +
+                  'calcPercentages: function() {' +
+                    'let wins = parseInt(this.win),' +
+                        'loses = parseInt(this.lose),' +
+                        'total = wins + loses,' +
+                        'percentage = (wins/total) * 100;' +
+                    'return odd + ": " + Math.round(percentage) + "% - total " + total;' +
+                  '}' +
                 '};' +
               '}' +
             '}' +
           '};' +
-          'function calcPercentages() {' +
-            'for(let o in odds) {' +
-              'let wins = parseInt(odds[o].win),' +
-                  'loses = parseInt(odds[o].lose),' +
-                  'total = wins + loses,' +
-                  'percentage = (wins/total) * 100;' +
-              'console.log( o + ": " + Math.round(percentage) + "% - total " + total);' +
-            '}' +
-          '}' +
-          'console.log(odds);' +
-          'calcPercentages();'
+
+          'for(let o in odds) {' +
+            'console.log(odds[o].calcPercentages());' +
+          '}' 
   });
 });
