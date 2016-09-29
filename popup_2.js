@@ -37,8 +37,12 @@ chrome.browserAction.onClicked.addListener(function(tab) {
             '}' +
           '};' +
 
-          'for(let o in odds) {' +
+          'var keys = Object.keys(odds);' +
+          'keys.sort();' +
+
+          'for (var k = 0; k < keys.length; k++) {' +
+            'var o = keys[k];' +
             'console.log(odds[o].calcPercentages());' +
-          '}' 
+          '}'
   });
 });
