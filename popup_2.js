@@ -1,4 +1,4 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
+function getStats() {
   chrome.tabs.executeScript({
     code: 'var odds = {},' +
               'lines = document.getElementById("ended-bets").getElementsByClassName("line-bet");' +
@@ -45,4 +45,11 @@ chrome.browserAction.onClicked.addListener(function(tab) {
             'console.log(odds[o].calcPercentages());' +
           '}'
   });
-});
+};
+
+function init() {
+  var checkButton = document.getElementById('getStats');
+  checkButton.addEventListener('click', getStats);
+}
+
+document.addEventListener('DOMContentLoaded', init);
